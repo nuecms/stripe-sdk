@@ -95,9 +95,9 @@ export function stripeSdk(config: StripeSDKConfig): StripeSDK {
 
     // Set content type based on API version
     if (isV2) {
-      options.headers['Content-Type'] = 'application/json';
+      options.contentType = 'application/json';
     } else {
-      options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      options.contentType = 'application/x-www-form-urlencoded';
     }
 
     return options;
