@@ -1,6 +1,7 @@
 import { sdkBuilder, SdkBuilderConfig, FetchContext, RedisCacheProvider, CacheProvider } from '@nuecms/sdk-builder';
 import { randomUUID } from 'crypto';
 import { debuglog } from 'util';
+import * as qs from 'qs';
 const debug = debuglog('stripe-sdk');
 
 /**
@@ -46,6 +47,44 @@ export type ContextConfig = {
   timeout: number;
   endpoint: string;
   apiVersion: string;
+}
+
+export type RequestData = Record<string, any>;
+
+export type ApiMode = 'v1' | 'v2';
+
+
+export function queryStringifyRequestData(
+  data: RequestData | string,
+  apiMode?: ApiMode
+): string {
+  return (
+    qs
+      .stringify(data, {
+        serializeDate: (d: Date) => Math.floor(d.getTime() / 1000).toString(),
+        arrayFormat: apiMode == 'v2' ? 'repeat' : 'indices',
+      })
+      // Don't use strict form encoding by changing the square bracket control
+      // characters back to their literals. This is fine by the server, and
+      // makes these parameter strings easier to read.
+      .replace(/%5B/g, '[')
+      .replace(/%5D/g, ']')
+  );
+}
+
+function dateTimeReplacer(this: any, key: string, value: any): string {
+  if (this[key] instanceof Date) {
+    return Math.floor(this[key].getTime() / 1000).toString();
+  }
+
+  return value;
+}
+
+/**
+ * JSON stringifies an Object, replacing Date objects with Unix timestamps
+ */
+export function jsonStringifyRequestData(data: RequestData | string): string {
+  return JSON.stringify(data, dateTimeReplacer);
 }
 
 const defaultEndpoint = 'https://api.stripe.com';
@@ -98,6 +137,12 @@ export function stripeSdk(config: StripeSDKConfig): StripeSDK {
       options.contentType = 'application/json';
     } else {
       options.contentType = 'application/x-www-form-urlencoded';
+    }
+    options.stringifyBody = (data: RequestData) => {
+      if (isV2) {
+        return jsonStringifyRequestData(data);
+      }
+      return queryStringifyRequestData(data, 'v1');
     }
 
     return options;

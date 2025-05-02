@@ -26,6 +26,7 @@ export default defineConfig({
         'crypto',
         'util',
         'buffer',
+        'qs'
       ], // Mark dependencies as external
       output: {
         globals: {

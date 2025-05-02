@@ -9,12 +9,18 @@ importers:
   .:
     dependencies:
       '@nuecms/sdk-builder':
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^1.1.2
+        version: 1.1.2
+      qs:
+        specifier: ^6.14.0
+        version: 6.14.0
     devDependencies:
       '@types/node':
         specifier: ^22.10.1
         version: 22.13.5
+      '@types/qs':
+        specifier: ^6.9.18
+        version: 6.9.18
       '@vitest/ui':
         specifier: 3.0.5
         version: 3.0.5(vitest@2.1.9)
@@ -473,8 +479,8 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@nuecms/sdk-builder@1.1.0':
-    resolution: {integrity: sha512-kCjLDuK/YrvvaVvq3+pXex4qyGx1/qR+DmFs4vO0E6ApUB9p+r7yqO8uIMGsINEMoEh57fD3Y8glcNf9+jJWwA==}
+  '@nuecms/sdk-builder@1.1.2':
+    resolution: {integrity: sha512-/odBMP0wZ39AVHjiBxx29tIQkvo2k4IgtRdiSyvUUdMW3S/m/XOuszlxeZ6yt8GCyOVJAvJJ5zddbjOyFq12bg==}
     engines: {browsers: 'last 2 versions, > 1%, not dead', node: '>=18.0.0'}
 
   '@octokit/auth-token@4.0.0':
@@ -698,6 +704,9 @@ packages:
 
   '@types/node@22.13.5':
     resolution: {integrity: sha512-+lTU0PxZXn0Dr1NBtC7Y8cR21AJr87dLLU953CWA6pMxxv/UDc7jYAY90upcrie1nRcD6XNG5HOYEDtgW5TxAg==}
+
+  '@types/qs@6.9.18':
+    resolution: {integrity: sha512-kK7dgTYDyGqS+e2Q4aK9X3D7q234CIZ1Bv0q/7Z5IwRDoADNU81xXJK/YVyLbLTZCoIwUoDoffFeF+p/eIklAA==}
 
   '@vitest/expect@2.1.9':
     resolution: {integrity: sha512-UJCIkTBenHeKT1TTlKMJWy1laZewsRIzYighyYiJKZreqtdxSos/S1t+ktRMQWu2CKqaarrkeszJx1cgC5tGZw==}
@@ -2232,6 +2241,10 @@ packages:
     resolution: {integrity: sha512-FLpr4flz5xZTSJxSeaheeMKN/EDzMdK7b8PTOC6a5PYFKTucWbdqjgqaEyH0shFiSJrVB1+Qqi4Tk19ccU6Aug==}
     engines: {node: '>=12.20'}
 
+  qs@6.14.0:
+    resolution: {integrity: sha512-YWWTjgABSKcvs/nWBi9PycY/JiPJqOD4JA6o9Sej2AtvSGarXxKC3OQSk4pAarbdQlKAh5D4FCQkJNkW+GAn3w==}
+    engines: {node: '>=0.6'}
+
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
@@ -3163,7 +3176,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.0
 
-  '@nuecms/sdk-builder@1.1.0':
+  '@nuecms/sdk-builder@1.1.2':
     dependencies:
       cross-fetch: 4.1.0
     transitivePeerDependencies:
@@ -3364,6 +3377,8 @@ snapshots:
   '@types/node@22.13.5':
     dependencies:
       undici-types: 6.20.0
+
+  '@types/qs@6.9.18': {}
 
   '@vitest/expect@2.1.9':
     dependencies:
@@ -5084,6 +5099,10 @@ snapshots:
   pupa@3.1.0:
     dependencies:
       escape-goat: 4.0.0
+
+  qs@6.14.0:
+    dependencies:
+      side-channel: 1.1.0
 
   queue-microtask@1.2.3: {}
 
