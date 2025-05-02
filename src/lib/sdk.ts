@@ -49,7 +49,7 @@ export type ContextConfig = {
 }
 
 const defaultEndpoint = 'https://api.stripe.com';
-const defaultApiVersion = '2025-02-24.acacia';
+const defaultApiVersion = '2025-04-30.basil';
 
 const createRequestId = () => {
   return randomUUID().replace(/-/g, '');
@@ -82,9 +82,9 @@ export function stripeSdk(config: StripeSDKConfig): StripeSDK {
   const isV2Endpoint = (path: string) => path.startsWith('/v2/');
 
   // Request interceptor to set appropriate headers based on API version
-  sdk.rx('reqInterceptor', async (config: Record<string, any>, options: any = {}, url: string) => {
+  sdk.rx('reqInterceptor', async (config: Record<string, any>, options: any = {}) => {
     const requestId = createRequestId();
-    const isV2 = isV2Endpoint(url);
+    const isV2 = isV2Endpoint(options.path);
 
     options.headers = {
       ...options.headers,
