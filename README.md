@@ -54,6 +54,7 @@ Based on the [Stripe REST API](https://stripe.com/docs/api), supporting both v1 
     - [Managing Customers (v1)](#managing-customers-v1)
     - [Working with Meter Events (v2)](#working-with-meter-events-v2)
     - [Managing Event Destinations (v2)](#managing-event-destinations-v2)
+    - [Creating a Checkout Session](#creating-a-checkout-session)
   - [API Versions](#api-versions)
   - [Contributing](#contributing)
   - [License](#license)
@@ -255,6 +256,40 @@ if (pingResult.status === 'succeeded') {
 
 // Delete an event destination when no longer needed
 await sdk.v2DeleteEventDestination({ id: destination.id });
+```
+
+### Creating a Checkout Session
+
+```typescript
+// Create a checkout session for a one-time payment
+const session = await sdk.createCheckoutSession({
+  payment_method_types: ['card'],
+  line_items: [
+    {
+      price: 'price_1234567890',  // ID of a price object
+      quantity: 1,
+    },
+  ],
+  mode: 'payment',
+  success_url: 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
+  cancel_url: 'https://example.com/cancel',
+});
+
+// Redirect the customer to the checkout page
+console.log(`Checkout URL: ${session.url}`);
+
+// Later, retrieve the completed session
+const completedSession = await sdk.getCheckoutSession({ id: session.id });
+if (completedSession.payment_status === 'paid') {
+  console.log('Payment was successful!');
+}
+
+// Get the line items from a session
+const lineItems = await sdk.getCheckoutSessionLineItems({ id: session.id });
+console.log(`Customer purchased: ${lineItems.data.length} items`);
+
+// Expire a session that's no longer needed
+await sdk.expireCheckoutSession({ id: session.id });
 ```
 
 ## API Versions

@@ -3,6 +3,17 @@ import { randomUUID } from 'crypto';
 import { debuglog } from 'util';
 const debug = debuglog('stripe-sdk');
 
+/**
+ * Configuration options for Stripe SDK
+ *
+ * @property apiKey - Stripe API key (sk_test_xxx or sk_live_xxx)
+ * @property endpoint - Optional custom API endpoint (defaults to https://api.stripe.com)
+ * @property timeout - Request timeout in milliseconds (defaults to 10000)
+ * @property maxRetries - Maximum number of retries for failed requests (defaults to 0)
+ * @property apiVersion - Stripe API version to use (defaults to latest stable version)
+ * @property cacheProvider - Optional cache provider for caching API responses
+ * @property customResponseTransformer - Optional function to transform API responses
+ */
 interface StripeSDKConfig {
   apiKey: string;
   endpoint?: string;
@@ -21,6 +32,14 @@ export {
 
 export type StripeSDK = ReturnType<typeof sdkBuilder>
 
+/**
+ * Internal configuration context for SDK
+ *
+ * @property apiKey - Stripe API key
+ * @property timeout - Request timeout in milliseconds
+ * @property endpoint - API endpoint URL
+ * @property apiVersion - Stripe API version
+ */
 export type ContextConfig = {
   [key: string]: any;
   apiKey: string;
@@ -168,6 +187,13 @@ function registerV1Endpoints(sdk: StripeSDK): void {
 
   // Webhooks
   sdk.r('constructEvent', '/v1/webhook/construct-event', 'POST'); // This is not a real Stripe endpoint, just for handling webhook events
+
+  // Checkout Sessions
+  sdk.r('createCheckoutSession', '/v1/checkout/sessions', 'POST');
+  sdk.r('getCheckoutSession', '/v1/checkout/sessions/{id}', 'GET');
+  sdk.r('listCheckoutSessions', '/v1/checkout/sessions', 'GET');
+  sdk.r('expireCheckoutSession', '/v1/checkout/sessions/{id}/expire', 'POST');
+  sdk.r('getCheckoutSessionLineItems', '/v1/checkout/sessions/{id}/line_items', 'GET');
 }
 
 function registerV2Endpoints(sdk: StripeSDK): void {
@@ -217,6 +243,15 @@ export function extractPageToken(url: string | null): string | null {
 
 // Export specific types for v1 and v2 endpoints
 export namespace V1 {
+  /**
+   * Stripe Payment Intent object
+   *
+   * @property id - Unique identifier for the payment intent
+   * @property object - Object type (always 'payment_intent')
+   * @property amount - Amount in smallest currency unit (e.g., cents for USD)
+   * @property currency - Three-letter ISO currency code
+   * @property status - Status of the payment intent (e.g., 'requires_payment_method', 'succeeded')
+   */
   export interface PaymentIntent {
     id: string;
     object: 'payment_intent';
@@ -226,6 +261,14 @@ export namespace V1 {
     // Add other properties as needed
   }
 
+  /**
+   * Stripe Customer object
+   *
+   * @property id - Unique identifier for the customer
+   * @property object - Object type (always 'customer')
+   * @property email - Customer's email address
+   * @property name - Customer's name
+   */
   export interface Customer {
     id: string;
     object: 'customer';
@@ -234,11 +277,75 @@ export namespace V1 {
     // Add other properties as needed
   }
 
+  /**
+   * Stripe Checkout Session object
+   *
+   * @property id - Unique identifier for the checkout session
+   * @property object - Object type (always 'checkout.session')
+   * @property cancel_url - URL to redirect customers when they cancel checkout
+   * @property client_reference_id - Unique reference for the checkout session
+   * @property customer - ID of the customer for the checkout session
+   * @property line_items - Items purchased in the checkout session
+   * @property mode - Payment mode of the checkout session (e.g., 'payment', 'subscription')
+   * @property payment_intent - ID of the payment intent created for the checkout session
+   * @property payment_status - Status of the payment (e.g., 'paid', 'unpaid')
+   * @property success_url - URL to redirect customers after successful checkout
+   * @property url - URL to the checkout session
+   */
+  export interface CheckoutSession {
+    id: string;
+    object: 'checkout.session';
+    cancel_url: string;
+    client_reference_id?: string;
+    customer?: string;
+    line_items?: LineItem[];
+    mode: 'payment' | 'setup' | 'subscription';
+    payment_intent?: string;
+    payment_status: 'paid' | 'unpaid' | 'no_payment_required';
+    success_url: string;
+    url?: string;
+    // Add other properties as needed
+  }
+
+  /**
+   * Line Item object for Checkout Sessions
+   *
+   * @property id - Unique identifier for the line item
+   * @property object - Object type (always 'item')
+   * @property amount_subtotal - Subtotal amount for the line item in smallest currency unit
+   * @property amount_total - Total amount for the line item in smallest currency unit
+   * @property currency - Three-letter ISO currency code
+   * @property description - Description of the line item
+   * @property price - ID of the price object
+   * @property quantity - Quantity of the line item
+   */
+  export interface LineItem {
+    id: string;
+    object: 'item';
+    amount_subtotal: number;
+    amount_total: number;
+    currency: string;
+    description: string;
+    price?: string;
+    quantity?: number;
+    // Add other properties as needed
+  }
+
   // Add more types as needed
 }
 
 export namespace V2 {
   // Billing - Meter Event Types
+  /**
+   * Meter Event object for usage-based billing
+   *
+   * @property id - Unique identifier for the meter event
+   * @property object - Object type (always 'billing.meter_event')
+   * @property meter_event_stream - ID of the meter event stream this event belongs to
+   * @property idempotency_key - Optional key for ensuring idempotency
+   * @property measurement_time - Unix timestamp when the measurement was taken
+   * @property payload - Custom payload data for the meter event
+   */
   export interface MeterEvent {
     id: string;
     object: 'billing.meter_event';
@@ -249,6 +356,15 @@ export namespace V2 {
     // Add other properties as needed
   }
 
+  /**
+   * Meter Event Adjustment object for modifying previously reported meter events
+   *
+   * @property id - Unique identifier for the meter event adjustment
+   * @property object - Object type (always 'billing.meter_event_adjustment')
+   * @property meter_event - ID of the meter event being adjusted
+   * @property reason - Reason for the adjustment
+   * @property delta - Delta values for the adjustment
+   */
   export interface MeterEventAdjustment {
     id: string;
     object: 'billing.meter_event_adjustment';
@@ -258,6 +374,14 @@ export namespace V2 {
     // Add other properties as needed
   }
 
+  /**
+   * Meter Event Session object for managing metered billing sessions
+   *
+   * @property id - Unique identifier for the meter event session
+   * @property object - Object type (always 'billing.meter_event_session')
+   * @property meter_event_stream - ID of the meter event stream this session belongs to
+   * @property status - Status of the session (e.g., 'open', 'closed')
+   */
   export interface MeterEventSession {
     id: string;
     object: 'billing.meter_event_session';
@@ -266,6 +390,14 @@ export namespace V2 {
     // Add other properties as needed
   }
 
+  /**
+   * Meter Event Stream object for defining schemas for meter event data
+   *
+   * @property id - Unique identifier for the meter event stream
+   * @property object - Object type (always 'billing.meter_event_stream')
+   * @property display_name - Display name for the meter event stream
+   * @property schema - JSON schema for validating meter event payloads
+   */
   export interface MeterEventStream {
     id: string;
     object: 'billing.meter_event_stream';
@@ -275,6 +407,16 @@ export namespace V2 {
   }
 
   // Core - Event Types
+  /**
+   * Event object for Stripe events
+   *
+   * @property id - Unique identifier for the event
+   * @property object - Object type (always 'core.event')
+   * @property api_version - API version used to generate the event
+   * @property created - Unix timestamp when the event was created
+   * @property data - Event data containing the relevant object
+   * @property type - Type of event (e.g., 'billing.meter_event.created')
+   */
   export interface Event {
     id: string;
     object: 'core.event';
@@ -287,6 +429,17 @@ export namespace V2 {
     // Add other properties as needed
   }
 
+  /**
+   * Event Destination object for webhook configuration
+   *
+   * @property id - Unique identifier for the event destination
+   * @property object - Object type (always 'core.event_destination')
+   * @property description - Optional description of the event destination
+   * @property endpoint_url - URL where events will be sent
+   * @property events_types - Array of event types to send to this destination
+   * @property status - Status of the event destination (e.g., 'active', 'inactive')
+   * @property enabled - Whether the event destination is enabled
+   */
   export interface EventDestination {
     id: string;
     object: 'core.event_destination';
@@ -298,6 +451,14 @@ export namespace V2 {
     // Add other properties as needed
   }
 
+  /**
+   * Generic pagination response for v2 list endpoints
+   *
+   * @property data - Array of objects returned by the API
+   * @property object - Object type (always 'list')
+   * @property next_page_url - URL for the next page of results (if available)
+   * @property previous_page_url - URL for the previous page of results (if available)
+   */
   export interface PaginationResponse<T> {
     data: T[];
     object: 'list';

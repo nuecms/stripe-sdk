@@ -88,6 +88,53 @@ const routes = {
       res.writeHead(500, { 'Content-Type': 'text/plain' });
       res.end(error.message);
     }
+  },
+  'GET /create-checkout-session': async (req, res) => {
+    try {
+      const response = await sdk.createCheckoutSession({
+        payment_method_types: ['card'],
+        line_items: [
+          {
+            price_data: {
+              currency: 'usd',
+              product_data: {
+                name: 'T-shirt',
+              },
+              unit_amount: 2000,
+            },
+            quantity: 1,
+          },
+        ],
+        mode: 'payment',
+        success_url: 'http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url: 'http://localhost:3000/cancel',
+      });
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(response));
+    } catch (error) {
+      console.log(error);
+      res.writeHead(500, { 'Content-Type': 'text/plain' });
+      res.end(error.message);
+    }
+  },
+  'GET /get-session': async (req, res) => {
+    try {
+      const url = new URL(req.url, 'http://localhost:3000');
+      const sessionId = url.searchParams.get('session_id');
+      if (!sessionId) {
+        res.writeHead(400, { 'Content-Type': 'text/plain' });
+        res.end('Missing session_id parameter');
+        return;
+      }
+
+      const response = await sdk.getCheckoutSession({ id: sessionId });
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(response));
+    } catch (error) {
+      console.log(error);
+      res.writeHead(500, { 'Content-Type': 'text/plain' });
+      res.end(error.message);
+    }
   }
 };
 

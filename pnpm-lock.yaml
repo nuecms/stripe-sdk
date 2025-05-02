@@ -9,15 +9,15 @@ importers:
   .:
     dependencies:
       '@nuecms/sdk-builder':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^1.1.0
+        version: 1.1.0
     devDependencies:
       '@types/node':
         specifier: ^22.10.1
         version: 22.13.5
       '@vitest/ui':
-        specifier: 2.1.8
-        version: 2.1.8(vitest@2.1.9)
+        specifier: 3.0.5
+        version: 3.0.5(vitest@2.1.9)
       dotenv:
         specifier: ^16.4.7
         version: 16.4.7
@@ -58,17 +58,17 @@ importers:
         specifier: ^5.7.2
         version: 5.7.3
       vite:
-        specifier: ^6.0.3
+        specifier: ^6.1.1
         version: 6.2.0(@types/node@22.13.5)(tsx@4.19.3)(yaml@2.7.0)
       vite-plugin-dts:
-        specifier: ^4.3.0
+        specifier: ^4.5.0
         version: 4.5.0(@types/node@22.13.5)(rollup@4.34.8)(typescript@5.7.3)(vite@6.2.0(@types/node@22.13.5)(tsx@4.19.3)(yaml@2.7.0))
       vite-tsconfig-paths:
         specifier: ^5.1.4
         version: 5.1.4(typescript@5.7.3)(vite@6.2.0(@types/node@22.13.5)(tsx@4.19.3)(yaml@2.7.0))
       vitest:
-        specifier: ^2.1.8
-        version: 2.1.9(@types/node@22.13.5)(@vitest/ui@2.1.8)
+        specifier: ^2.1.9
+        version: 2.1.9(@types/node@22.13.5)(@vitest/ui@3.0.5)
 
 packages:
 
@@ -473,8 +473,8 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@nuecms/sdk-builder@1.0.1':
-    resolution: {integrity: sha512-xG7mOQdCF1g3wqurjo+GBf/tENS6go/R/COV4eA5lkAjxka4JCkH0fea0hyzliNi+DUEBIFqusZiQ94GzHzQpA==}
+  '@nuecms/sdk-builder@1.1.0':
+    resolution: {integrity: sha512-kCjLDuK/YrvvaVvq3+pXex4qyGx1/qR+DmFs4vO0E6ApUB9p+r7yqO8uIMGsINEMoEh57fD3Y8glcNf9+jJWwA==}
     engines: {browsers: 'last 2 versions, > 1%, not dead', node: '>=18.0.0'}
 
   '@octokit/auth-token@4.0.0':
@@ -713,11 +713,11 @@ packages:
       vite:
         optional: true
 
-  '@vitest/pretty-format@2.1.8':
-    resolution: {integrity: sha512-9HiSZ9zpqNLKlbIDRWOnAWqgcA7xu+8YxXSekhr0Ykab7PAYFkhkwoqVArPOtJhPmYeE2YHgKZlj3CP36z2AJQ==}
-
   '@vitest/pretty-format@2.1.9':
     resolution: {integrity: sha512-KhRIdGV2U9HOUzxfiHmY8IFHTdqtOhIzCpd8WRdJiE7D/HUcZVD0EgQCVjm+Q9gkUXWgBvMmTtZgIG48wq7sOQ==}
+
+  '@vitest/pretty-format@3.0.5':
+    resolution: {integrity: sha512-CjUtdmpOcm4RVtB+up8r2vVDLR16Mgm/bYdkGFe3Yj/scRfCpbSi2W/BDSDcFK7ohw8UXvjMbOp9H4fByd/cOA==}
 
   '@vitest/runner@2.1.9':
     resolution: {integrity: sha512-ZXSSqTFIrzduD63btIfEyOmNcBmQvgOVsPNPe0jYtESiXkhd8u2erDLnMxmGrDCwHCCHE7hxwRDCT3pt0esT4g==}
@@ -728,16 +728,16 @@ packages:
   '@vitest/spy@2.1.9':
     resolution: {integrity: sha512-E1B35FwzXXTs9FHNK6bDszs7mtydNi5MIfUWpceJ8Xbfb1gBMscAnwLbEu+B44ed6W3XjL9/ehLPHR1fkf1KLQ==}
 
-  '@vitest/ui@2.1.8':
-    resolution: {integrity: sha512-5zPJ1fs0ixSVSs5+5V2XJjXLmNzjugHRyV11RqxYVR+oMcogZ9qTuSfKW+OcTV0JeFNznI83BNylzH6SSNJ1+w==}
+  '@vitest/ui@3.0.5':
+    resolution: {integrity: sha512-gw2noso6WI+2PeMVCZFntdATS6xl9qhQcbhkPQ9sOmx/Xn0f4Bx4KDSbD90jpJPF0l5wOzSoGCmKyVR3W612mg==}
     peerDependencies:
-      vitest: 2.1.8
-
-  '@vitest/utils@2.1.8':
-    resolution: {integrity: sha512-dwSoui6djdwbfFmIgbIjX2ZhIoG7Ex/+xpxyiEgIGzjliY8xGkcpITKTlp6B4MgtGkF2ilvm97cPM96XZaAgcA==}
+      vitest: 3.0.5
 
   '@vitest/utils@2.1.9':
     resolution: {integrity: sha512-v0psaMSkNJ3A2NMrUEHFRzJtDPFn+/VWZ5WxImB21T9fjucJRmS7xCS3ppEnARb9y11OAzaD+P2Ps+b+BGX5iQ==}
+
+  '@vitest/utils@3.0.5':
+    resolution: {integrity: sha512-N9AX0NUoUtVwKwy21JtwzaqR5L5R5A99GAbrHfCCXK1lp593i/3AZAXhSP43wRQuxYsflrdzEfXZFo1reR1Nkg==}
 
   '@volar/language-core@2.4.11':
     resolution: {integrity: sha512-lN2C1+ByfW9/JRPpqScuZt/4OrUUse57GLI6TbLgTIqBVemdl1wNcZ1qYGEo2+Gw8coYLgCy7SuKqn6IrQcQgg==}
@@ -2563,6 +2563,10 @@ packages:
     resolution: {integrity: sha512-weEDEq7Z5eTHPDh4xjX789+fHfF+P8boiFB+0vbWzpbnbsEr/GRaohi/uMKxg8RZMXnl1ItAi/IUHWMsjDV7kQ==}
     engines: {node: '>=14.0.0'}
 
+  tinyrainbow@2.0.0:
+    resolution: {integrity: sha512-op4nsTR47R6p0vMUUoYl/a+ljLFVtlfaXkLQmqfLR1qHma1h/ysYk4hEXZ880bf2CYgTskvTa/e196Vd5dDQXw==}
+    engines: {node: '>=14.0.0'}
+
   tinyspy@3.0.2:
     resolution: {integrity: sha512-n1cw8k1k0x4pgA2+9XrOkFydTerNcJ1zWCO5Nn9scWHTD+5tp8dghT2x1uduQePZTZgd3Tupf+x9BxJjeJi77Q==}
     engines: {node: '>=14.0.0'}
@@ -3159,7 +3163,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.0
 
-  '@nuecms/sdk-builder@1.0.1':
+  '@nuecms/sdk-builder@1.1.0':
     dependencies:
       cross-fetch: 4.1.0
     transitivePeerDependencies:
@@ -3376,13 +3380,13 @@ snapshots:
     optionalDependencies:
       vite: 5.4.14(@types/node@22.13.5)
 
-  '@vitest/pretty-format@2.1.8':
-    dependencies:
-      tinyrainbow: 1.2.0
-
   '@vitest/pretty-format@2.1.9':
     dependencies:
       tinyrainbow: 1.2.0
+
+  '@vitest/pretty-format@3.0.5':
+    dependencies:
+      tinyrainbow: 2.0.0
 
   '@vitest/runner@2.1.9':
     dependencies:
@@ -3399,28 +3403,28 @@ snapshots:
     dependencies:
       tinyspy: 3.0.2
 
-  '@vitest/ui@2.1.8(vitest@2.1.9)':
+  '@vitest/ui@3.0.5(vitest@2.1.9)':
     dependencies:
-      '@vitest/utils': 2.1.8
+      '@vitest/utils': 3.0.5
       fflate: 0.8.2
       flatted: 3.3.3
-      pathe: 1.1.2
+      pathe: 2.0.3
       sirv: 3.0.1
       tinyglobby: 0.2.12
-      tinyrainbow: 1.2.0
-      vitest: 2.1.9(@types/node@22.13.5)(@vitest/ui@2.1.8)
-
-  '@vitest/utils@2.1.8':
-    dependencies:
-      '@vitest/pretty-format': 2.1.8
-      loupe: 3.1.3
-      tinyrainbow: 1.2.0
+      tinyrainbow: 2.0.0
+      vitest: 2.1.9(@types/node@22.13.5)(@vitest/ui@3.0.5)
 
   '@vitest/utils@2.1.9':
     dependencies:
       '@vitest/pretty-format': 2.1.9
       loupe: 3.1.3
       tinyrainbow: 1.2.0
+
+  '@vitest/utils@3.0.5':
+    dependencies:
+      '@vitest/pretty-format': 3.0.5
+      loupe: 3.1.3
+      tinyrainbow: 2.0.0
 
   '@volar/language-core@2.4.11':
     dependencies:
@@ -5468,6 +5472,8 @@ snapshots:
 
   tinyrainbow@1.2.0: {}
 
+  tinyrainbow@2.0.0: {}
+
   tinyspy@3.0.2: {}
 
   tmp@0.0.33:
@@ -5653,7 +5659,7 @@ snapshots:
       tsx: 4.19.3
       yaml: 2.7.0
 
-  vitest@2.1.9(@types/node@22.13.5)(@vitest/ui@2.1.8):
+  vitest@2.1.9(@types/node@22.13.5)(@vitest/ui@3.0.5):
     dependencies:
       '@vitest/expect': 2.1.9
       '@vitest/mocker': 2.1.9(vite@5.4.14(@types/node@22.13.5))
@@ -5677,7 +5683,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.13.5
-      '@vitest/ui': 2.1.8(vitest@2.1.9)
+      '@vitest/ui': 3.0.5(vitest@2.1.9)
     transitivePeerDependencies:
       - less
       - lightningcss
