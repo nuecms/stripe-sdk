@@ -1,6 +1,5 @@
 # Stripe SDK
 
-> WIP
 
 A flexible and lightweight SDK for building Stripe integrations with dynamic endpoints, caching, and response transformations.
 
