@@ -221,6 +221,7 @@ function registerV1Endpoints(sdk: StripeSDK): void {
   sdk.r('getSubscription', '/v1/subscriptions/{subscription_id}', 'GET');
   sdk.r('updateSubscription', '/v1/subscriptions/{subscription_id}', 'POST');
   sdk.r('cancelSubscription', '/v1/subscriptions/{subscription_id}', 'DELETE');
+  sdk.r('listSubscriptions', '/v1/subscriptions', 'GET');
 
   // Invoices
   sdk.r('createInvoice', '/v1/invoices', 'POST');
@@ -239,6 +240,52 @@ function registerV1Endpoints(sdk: StripeSDK): void {
   sdk.r('listCheckoutSessions', '/v1/checkout/sessions', 'GET');
   sdk.r('expireCheckoutSession', '/v1/checkout/sessions/{id}/expire', 'POST');
   sdk.r('getCheckoutSessionLineItems', '/v1/checkout/sessions/{id}/line_items', 'GET');
+
+  // Connect - Accounts
+  sdk.r('createAccount', '/v1/accounts', 'POST');
+  sdk.r('getAccount', '/v1/accounts/{account_id}', 'GET');
+  sdk.r('updateAccount', '/v1/accounts/{account_id}', 'POST');
+  sdk.r('deleteAccount', '/v1/accounts/{account_id}', 'DELETE');
+  sdk.r('rejectAccount', '/v1/accounts/{account_id}/reject', 'POST');
+  sdk.r('listAccounts', '/v1/accounts', 'GET');
+
+  // Connect - Account Links
+  sdk.r('createAccountLink', '/v1/account_links', 'POST');
+
+  // Connect - Capabilities
+  sdk.r('getCapability', '/v1/accounts/{account_id}/capabilities/{capability_id}', 'GET');
+  sdk.r('updateCapability', '/v1/accounts/{account_id}/capabilities/{capability_id}', 'POST');
+  sdk.r('listCapabilities', '/v1/accounts/{account_id}/capabilities', 'GET');
+
+  // Connect - Persons
+  sdk.r('createPerson', '/v1/accounts/{account_id}/persons', 'POST');
+  sdk.r('getPerson', '/v1/accounts/{account_id}/persons/{person_id}', 'GET');
+  sdk.r('updatePerson', '/v1/accounts/{account_id}/persons/{person_id}', 'POST');
+  sdk.r('deletePerson', '/v1/accounts/{account_id}/persons/{person_id}', 'DELETE');
+  sdk.r('listPersons', '/v1/accounts/{account_id}/persons', 'GET');
+
+  // Connect - Transfers
+  sdk.r('createTransfer', '/v1/transfers', 'POST');
+  sdk.r('getTransfer', '/v1/transfers/{transfer_id}', 'GET');
+  sdk.r('updateTransfer', '/v1/transfers/{transfer_id}', 'POST');
+  sdk.r('listTransfers', '/v1/transfers', 'GET');
+  sdk.r('createTransferReversal', '/v1/transfers/{transfer_id}/reversals', 'POST');
+  sdk.r('getTransferReversal', '/v1/transfers/{transfer_id}/reversals/{reversal_id}', 'GET');
+  sdk.r('updateTransferReversal', '/v1/transfers/{transfer_id}/reversals/{reversal_id}', 'POST');
+  sdk.r('listTransferReversals', '/v1/transfers/{transfer_id}/reversals', 'GET');
+
+  // Connect - Application Fees
+  sdk.r('getApplicationFee', '/v1/application_fees/{fee_id}', 'GET');
+  sdk.r('listApplicationFees', '/v1/application_fees', 'GET');
+  sdk.r('createApplicationFeeRefund', '/v1/application_fees/{fee_id}/refunds', 'POST');
+  sdk.r('getApplicationFeeRefund', '/v1/application_fees/{fee_id}/refunds/{refund_id}', 'GET');
+  sdk.r('updateApplicationFeeRefund', '/v1/application_fees/{fee_id}/refunds/{refund_id}', 'POST');
+  sdk.r('listApplicationFeeRefunds', '/v1/application_fees/{fee_id}/refunds', 'GET');
+
+  // Connect - Balance Transactions for Connected Accounts
+  sdk.r('getConnectedAccountBalance', '/v1/accounts/{account_id}/balance', 'GET');
+  sdk.r('getConnectedAccountBalanceTransaction', '/v1/accounts/{account_id}/balance/history/{transaction_id}', 'GET');
+  sdk.r('listConnectedAccountBalanceTransactions', '/v1/accounts/{account_id}/balance/history', 'GET');
 }
 
 function registerV2Endpoints(sdk: StripeSDK): void {
