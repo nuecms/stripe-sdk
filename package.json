@@ -1,6 +1,6 @@
 {
   "name": "@nuecms/stripe-sdk",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "A flexible and lightweight Stripe SDK for Node.js",
   "type": "module",
   "main": "dist/index.js",
